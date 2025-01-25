@@ -4,6 +4,25 @@ from pydrive2.drive import GoogleDrive
 import os
 
 
+def authenticate_google_drive():
+    # Load client_secret directly from Streamlit secrets
+    client_secret = st.secrets["client_secret"]
+    
+    # Write the client_secret to a temporary file
+    with open("client_secret.json", "w") as f:
+        json.dump(client_secret, f)
+
+    # Authenticate with Google Drive
+    gauth = GoogleAuth()
+    gauth.LoadClientConfigFile("client_secret.json")
+
+    # Now you can use `gauth` to interact with Google Drive
+    drive = GoogleDrive(gauth)
+    return drive
+
+# Authenticate and get the Google Drive object
+drive = authenticate_google_drive()
+
 
 # Streamlit UI
 st.title("Upload to Google Drive")
