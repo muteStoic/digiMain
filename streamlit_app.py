@@ -9,6 +9,7 @@ def authenticate_google_drive():
 
     # Load client secret from Streamlit secrets
     client_secret = st.secrets["client_secret"]
+    st.write(client_secret)
 
     # Save the client secret data into a temporary JSON file
     with open("client_secret.json", "w") as f:
