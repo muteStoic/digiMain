@@ -7,7 +7,7 @@ def main():
     
     # Google Authentication
     st.subheader("Google Authentication")
-    client_id = "896294200925-51fbg1jbp78v7t2f3t1afpguq0vkjbon.apps.googleusercontent.com"  # Replace with your OAuth client ID
+    client_id = "896294200925-51fbg1jbp78v7t2f3t1afpguq0vkjbon.apps.googleusercontent.com1"  # Replace with your OAuth client ID
     token = st.text_input("Enter your Google ID token", type="password")
     if st.button("Authenticate"):
         try:
