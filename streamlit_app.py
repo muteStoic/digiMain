@@ -12,11 +12,11 @@ def authenticate_google_drive():
     st.write(client_secret)
 
     # Save the client secret data into a temporary JSON file
-    with open("client_secret.json", "w") as f:
-        json.dump(client_secret, f)
+    #with open("client_secret.json", "w") as f:
+    #    json.dump(client_secret, f)
 
     # Load client secret from the temporary JSON file
-    gauth.LoadClientConfigFile("client_secret.json")
+    gauth.LoadClientConfigFile(client_secret)
 
     # Authenticate with Google
     gauth.LocalWebserverAuth()  # Authenticate if credentials not found or expired
