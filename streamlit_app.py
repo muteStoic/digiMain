@@ -11,7 +11,7 @@ st.secrets["client_secret"]
 @st.cache_resource
 def authenticate_google_drive():
 
-    client_secret_path = "client_secret.json"
+    client_secret_path = "client_secret"
     with open(client_secret_path, "w") as f:
         json.dump(st.secrets["client_secret"], f)
     gauth = GoogleAuth()
