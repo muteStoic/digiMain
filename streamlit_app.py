@@ -5,6 +5,7 @@ import os
 import json
 
 st.write("test")
+st.secrets["client_secret"]
 
 # Authenticate Google Drive
 @st.cache_resource
