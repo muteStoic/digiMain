@@ -10,7 +10,7 @@ st.title("Upload to Google Drive")
 uploaded_file = st.file_uploader("Choose a file to upload")
 
 if uploaded_file:
-    folder_id = "YOUR_GOOGLE_DRIVE_FOLDER_ID"  # Replace with your folder ID
+    folder_id = "14LNnis-SuY6w56_4dej4xWHpz6RRF43r"  # Replace with your folder ID
     file_name = uploaded_file.name
     st.write(f"Uploading `{file_name}` to Google Drive...")
 
