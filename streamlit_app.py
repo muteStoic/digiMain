@@ -10,12 +10,11 @@ def authenticate_google_drive():
     client_secret = st.secrets["client_secret"]
     
     # Write the client_secret to a temporary file
-    with open("client_secret.json", "w") as f:
-        json.dump(client_secret, f)
+    
 
     # Authenticate with Google Drive
     gauth = GoogleAuth()
-    gauth.LoadClientConfigFile("client_secret.json")
+    gauth.LoadClientConfigFile(client_secret)
 
     # Now you can use `gauth` to interact with Google Drive
     drive = GoogleDrive(gauth)
