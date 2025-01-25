@@ -1,39 +1,40 @@
+import json
 import streamlit as st
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
 import os
-import json
 
-st.write("test")
-st.secrets["client_secret"]
-
-# Authenticate Google Drive
-@st.cache_resource
 def authenticate_google_drive():
-
-    client_secret_path = "client_secret.json"
-    with open(client_secret_path, "w") as f:
-        json.dump(st.secrets["client_secret"], f)
     gauth = GoogleAuth()
-    gauth.LoadClientConfigFile("client_secret")
-    if gauth.credentials is None:
-        gauth.LocalWebserverAuth()  # Authenticate if no credentials
-    elif gauth.access_token_expired:
-        gauth.Refresh()  # Refresh credentials if expired
-    else:
-        gauth.Authorize()  # Authorize if valid
+
+    # Load client secret from Streamlit secrets
+    client_secret = st.secrets["client_secret"]
+
+    # Save the client secret data into a temporary JSON file
+    with open("client_secret.json", "w") as f:
+        json.dump(client_secret, f)
+
+    # Load client secret from the temporary JSON file
+    gauth.LoadClientConfigFile("client_secret.json")
+
+    # Authenticate with Google
+    gauth.LocalWebserverAuth()  # Authenticate if credentials not found or expired
+
+    # Save credentials to a file for later use
     gauth.SaveCredentialsFile("credentials.txt")
+
+    # Return authenticated GoogleDrive instance
     return GoogleDrive(gauth)
 
 # Initialize Google Drive
 drive = authenticate_google_drive()
 
-# Streamlit UI
-st.title("Upload to Google Drive")
+# Streamlit UI for uploading files
+st.title("Upload File to Google Drive")
 uploaded_file = st.file_uploader("Choose a file to upload")
 
 if uploaded_file:
-    folder_id = "14LNnis-SuY6w56_4dej4xWHpz6RRF43r"  # Replace with your folder ID
+    folder_id = "YOUR_GOOGLE_DRIVE_FOLDER_ID"  # Replace with your folder ID
     file_name = uploaded_file.name
     st.write(f"Uploading `{file_name}` to Google Drive...")
 
@@ -50,5 +51,3 @@ if uploaded_file:
 
     # Remove the temporary file
     os.remove(file_name)
-
-
