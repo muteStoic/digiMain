@@ -6,21 +6,11 @@ import json
 
 
 def authenticate_google_drive():
-    # Load client_secret directly from Streamlit secrets
-    client_secret = st.secrets["client_secret"]
-    
-    # Write the client_secret to a temporary file
-    
-
-    # Authenticate with Google Drive
     gauth = GoogleAuth()
-    gauth.LoadClientConfigFile(client_secret)
+    gauth.LocalWebserverAuth()  # This will prompt for OAuth the first time
+    return GoogleDrive(gauth)
 
-    # Now you can use `gauth` to interact with Google Drive
-    drive = GoogleDrive(gauth)
-    return drive
-
-# Authenticate and get the Google Drive object
+# Initialize Google Drive
 drive = authenticate_google_drive()
 
 
