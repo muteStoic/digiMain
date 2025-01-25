@@ -3,6 +3,8 @@ from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
 import os
 
+st.write("test")
+
 # Authenticate Google Drive
 @st.cache_resource
 def authenticate_google_drive():
@@ -43,3 +45,5 @@ if uploaded_file:
 
     # Remove the temporary file
     os.remove(file_name)
+
+
