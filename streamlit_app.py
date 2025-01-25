@@ -2,9 +2,14 @@ import streamlit as st
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
 import os
+import json
 
 # Authenticate Google Drive (This will ask for OAuth the first time)
 def authenticate_google_drive():
+    client_secret = st.secrets["client_secret"]
+    with open('client_secret.json', 'w') as f:
+        json.dump(client_secret, f)
+
     gauth = GoogleAuth()
     gauth.LocalWebserverAuth()  # This will prompt for OAuth the first time
     return GoogleDrive(gauth)
