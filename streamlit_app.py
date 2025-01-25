@@ -1,28 +1,29 @@
 import streamlit as st
-from google.oauth2 import id_token
-from google.auth.transport import requests
+from pydrive2.auth import GoogleAuth
+from pydrive2.drive import GoogleDrive
+import os
 
-def main():
-    st.title("Your Streamlit App")
-    st.write("test")
-    
-    # Google Authentication
-    st.subheader("Google Authentication")
-    client_id = "896294200925-51fbg1jbp78v7t2f3t1afpguq0vkjbon.apps.googleusercontent.com"  # Replace with your OAuth client ID
-    token = st.text_input("Enter your Google ID token", type="password")
-    if st.button("Authenticate"):
-        try:
-            idinfo = id_token.verify_oauth2_token(token, requests.Request(), client_id)
-            if idinfo['aud'] != client_id:
-                raise ValueError("Invalid client ID")
-            st.success(f"Authentication successful: {idinfo['name']}")
-            # Continue with the rest of your app logic here
-        except ValueError as e:
-            st.error("Authentication failed")
-            st.error(e)
-    
-    # Other app content
-    # ...
-    
-if __name__ == "__main__":
-    main()
+
+
+# Streamlit UI
+st.title("Upload to Google Drive")
+uploaded_file = st.file_uploader("Choose a file to upload")
+
+if uploaded_file:
+    folder_id = "YOUR_GOOGLE_DRIVE_FOLDER_ID"  # Replace with your folder ID
+    file_name = uploaded_file.name
+    st.write(f"Uploading `{file_name}` to Google Drive...")
+
+    # Save the uploaded file temporarily
+    with open(file_name, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+
+    # Upload to Google Drive
+    gfile = drive.CreateFile({"parents": [{"id": folder_id}], "title": file_name})
+    gfile.SetContentFile(file_name)
+    gfile.Upload()
+
+    st.success(f"File `{file_name}` successfully uploaded to Google Drive!")
+
+    # Remove the temporary file
+    os.remove(file_name)
