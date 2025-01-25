@@ -2,15 +2,19 @@ import streamlit as st
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
 import os
+import json
 
 st.write("test")
 
 # Authenticate Google Drive
 @st.cache_resource
 def authenticate_google_drive():
+
+    client_secret_path = "client_secret.json"
+    with open(client_secret_path, "w") as f:
+        json.dump(st.secrets["client_secret"], f)
     gauth = GoogleAuth()
-    gauth.DEFAULT_SETTINGS['client_config_file'] = 'client_secret_896294200925-51fbg1jbp78v7t2f3t1afpguq0vkjbon.apps.googleusercontent.com.json'  # Add your JSON file here
-    gauth.LoadCredentialsFile("credentials.txt")
+    gauth.LoadClientConfigFile(client_secret_path)
     if gauth.credentials is None:
         gauth.LocalWebserverAuth()  # Authenticate if no credentials
     elif gauth.access_token_expired:

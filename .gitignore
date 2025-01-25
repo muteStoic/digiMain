@@ -1,5 +1,5 @@
 .streamlit/secrets.toml
-client_secret_896294200925-51fbg1jbp78v7t2f3t1afpguq0vkjbon.apps.googleusercontent.com.json
+client_secret.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
