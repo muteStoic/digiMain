@@ -7,7 +7,7 @@ import os
 @st.cache_resource
 def authenticate_google_drive():
     gauth = GoogleAuth()
-    gauth.DEFAULT_SETTINGS['client_config_file'] = 'client_secret.json'  # Add your JSON file here
+    gauth.DEFAULT_SETTINGS['client_config_file'] = 'client_secret_896294200925-51fbg1jbp78v7t2f3t1afpguq0vkjbon.apps.googleusercontent.com.json'  # Add your JSON file here
     gauth.LoadCredentialsFile("credentials.txt")
     if gauth.credentials is None:
         gauth.LocalWebserverAuth()  # Authenticate if no credentials
